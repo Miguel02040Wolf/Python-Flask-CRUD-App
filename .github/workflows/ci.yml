@@ -18,19 +18,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: Instalar dependencias
         run: |
-          pip install flask flask-mysqldb flask_fontawesome mysqlclient
+          pip install flask flask-mysqldb flask_fontawesome
 
       - name: Verificar sintaxis Python
         run: |
           python -m py_compile app.py
-          echo "✅ Sintaxis correcta"
+          echo "✅ Sintaxis Python correcta"
 
       - name: Lint (calidad de código)
         run: |
           pip install flake8
-          flake8 app.py --count --exit-zero --max-complexity=10 --max-line-length=120
-          echo "✅ Lint completado"
+          flake8 app.py --count --exit-zero --max-complexity=10 --max-line-length=120 || echo "Lint completado con advertencias"
